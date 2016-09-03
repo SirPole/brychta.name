@@ -1,0 +1,26 @@
+{
+  "name": "brychta.name",
+  "version": "1.0.0",
+  "devDependencies": {
+    "browser-sync": "^2.11.1",
+    "es6-promise": "^3.2.1",
+    "gulp": "^3.9.1",
+    "gulp-add-src": "^0.2.0",
+    "gulp-callback": "0.0.3",
+    "gulp-concat": "^2.6.0",
+    "gulp-consolidate": "^0.2.0",
+    "gulp-cssnano": "^2.1.1",
+    "gulp-cssretarget": "^1.1.4",
+    "gulp-foreach": "^0.1.0",
+    "gulp-google-fonts-base64-css": "^1.0.4",
+    "gulp-sass": "^2.3.2",
+    "gulp-load-plugins": "^1.2.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-strip-debug": "^1.1.0",
+    "gulp-uglify": "^2.0.0",
+    "gulp-util": "^3.0.7",
+    "gulp-babel": "^6.1.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "babel-preset-es2015": "^6.14.0"
+  }
+}
