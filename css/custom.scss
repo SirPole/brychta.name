@@ -1,5 +1,161 @@
 //
 // VARS >>>
 //
+$screen-xs: 480px;
+$screen-sm: 768px;
+$screen-md: 992px;
+$screen-lg: 1200px;
+$screen-xs-max: ($screen-sm - 1);
+$screen-sm-max: ($screen-md - 1);
+$screen-md-max: ($screen-lg - 1);
 
+$brand-primary: #03A9F4;
+$brand-secondary: #F44336;
+
+$popin-left: -50px;
+$popin-bottom: -75px;
+$popin-count: 20;
+$base-delay: 300ms;
+
+// LIGHT >>>
+$dark-bg: #e0e0e0;
+$bg: #f5f5f5;
+$content-bg: #fafafa;
+$card-bg: #ffffff;
+$color: #000000;
+// <<< LIGHT
+
+// DARK >>>
+$dark-bg: #000000;
+$bg: #212121;
+$content-bg: #303030;
+$card-bg: #424242;
+$color: #ffffff;
+// <<< DARK
 // <<< VARS
+
+.transAll {
+	transition: all 200ms ease-in-out;
+}
+
+.hidden {
+	display: none !important;
+}
+
+html, body {
+	overflow-x: hidden;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 16px;
+	line-height: 1.5;
+	background: $bg;
+	color: $color;
+}
+
+h1 {
+	font-size: 48px;
+	font-weight: 700;
+	margin: 36px 0 24px;
+}
+
+h2 {
+	font-size: 36px;
+	font-weight: 700;
+	margin: 24px 0 18px;
+}
+
+h3 {
+	font-size: 24px;
+	font-weight: 700;
+	margin: 12px 0 8px;
+}
+
+p {
+	font-size: 16px;
+	line-height: 1.5;
+}
+
+a {
+	color: $brand-primary;
+	text-decoration: none;
+	@extend .transAll;
+	&:hover, &:focus, &:active, &.active {
+		color: darken($brand-primary, 30%);
+		text-decoration: none;
+	}
+}
+
+@import 'math/math';
+
+@function particles($count, $distance, $mod) {
+	$out: ();
+	@for $i from 1 to $count + 1 {
+		$angle: $i * (360deg/$count) * (1/$mod);
+		$color: hsl(2*strip-unit($angle) + $count*$mod, 100%, 50%);
+
+		$r: log($i * 1/$mod) * $distance;
+		$x: $r * cos($angle);
+		$y: $r * sin($angle);
+		$out: $out, #{$x} #{$y} #{$color}, #{-$x} #{-$y} #{$color}, #{$y} #{$x} #{$color}, #{-$y} #{-$x} #{$color};
+		$out: $out, #{-$x} #{$y} #{$color}, #{$x} #{-$y} #{$color}, #{-$y} #{$x} #{$color}, #{$y} #{-$x} #{$color};
+
+		$r: pow($i, 1/$mod) * $distance;
+		$x: $r * cos($angle);
+		$y: $r * sin($angle);
+		$out: $out, #{$x} #{$y} #{$color}, #{-$x} #{-$y} #{$color}, #{$y} #{$x} #{$color}, #{-$y} #{-$x} #{$color};
+		$out: $out, #{-$x} #{$y} #{$color}, #{$x} #{-$y} #{$color}, #{-$y} #{$x} #{$color}, #{$y} #{-$x} #{$color};
+	}
+	@return $out;
+}
+
+.root {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: .25em;
+	height: .25em;
+	border-radius: 50%;
+	box-shadow: none;
+	animation: ani 20s linear infinite, rot 20s cubic-bezier(0, 2, 1, -1) infinite;
+}
+
+$particles: 40;
+$distance: 5em;
+
+@keyframes ani {
+	0%, 100% {
+		box-shadow: particles($particles, $distance, 2);
+	}
+	10% {
+		box-shadow: particles($particles, $distance, 3);
+	}
+	20% {
+		box-shadow: particles($particles, $distance, $PI);
+	}
+	30% {
+		box-shadow: particles($particles, $distance, sqrt(3));
+	}
+	40% {
+		box-shadow: particles($particles, $distance, 1);
+	}
+	50% {
+		box-shadow: particles($particles, $distance, $E);
+	}
+	60% {
+		box-shadow: particles($particles, $distance, tan(60deg));
+	}
+	70% {
+		box-shadow: particles($particles, $distance, $LN2);
+	}
+	80% {
+		box-shadow: particles($particles, $distance, tan(30deg));
+	}
+	90% {
+		box-shadow: particles($particles, $distance, $SQRT2);
+	}
+}
+
+@keyframes rot {
+	to {
+		transform: rotate(360deg);
+	}
+}
