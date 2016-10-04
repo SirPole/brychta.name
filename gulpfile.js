@@ -35,7 +35,8 @@ var settings = {
 
 gulp.task('sass', function () {
 	return gulp.src(settings.files.sass)
-		.pipe($.sass().on('error', $.sass.logError))
+		.pipe(watchErrors())
+		.pipe($.sass())
 		.pipe(gulp.dest('./css'));
 });
 
@@ -67,15 +68,15 @@ gulp.task('js', function () {
 		.pipe($.sourcemaps.init({
 			loadMaps: true
 		}))
+		.pipe($.concat('scripts.min.js'))
+		.pipe($.stripDebug())
+		.pipe($.uglify())
 		.pipe($.babel({
 			presets: ['es2015'],
 			compact: false,
 			minified: true,
 			comments: false,
 		}))
-		.pipe($.stripDebug())
-		.pipe($.uglify())
-		.pipe($.concat('scripts.min.js'))
 		.pipe($.sourcemaps.write('./maps'))
 		.pipe(gulp.dest('./dist/js'));
 });
