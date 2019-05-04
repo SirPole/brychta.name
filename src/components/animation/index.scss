@@ -1,0 +1,73 @@
+@import '~mathsass/dist/math';
+@import '../../variables';
+
+@function particles($count, $distance, $mod) {
+  $out: ();
+  @for $i from 1 to $count + 1 {
+    $angle: $i * (360deg/$count) * (1/$mod);
+    $color: hsl(2*strip-unit($angle) + $count*$mod, 100%, 50%);
+
+    $r: log($i * 1/$mod) * $distance;
+    $x: $r * cos($angle);
+    $y: $r * sin($angle);
+    $out: $out, #{$x} #{$y} #{$color}, #{-$x} #{-$y} #{$color}, #{$y} #{$x} #{$color}, #{-$y} #{-$x} #{$color};
+    $out: $out, #{-$x} #{$y} #{$color}, #{$x} #{-$y} #{$color}, #{-$y} #{$x} #{$color}, #{$y} #{-$x} #{$color};
+
+    $r: pow($i, 1/$mod) * $distance;
+    $x: $r * cos($angle);
+    $y: $r * sin($angle);
+    $out: $out, #{$x} #{$y} #{$color}, #{-$x} #{-$y} #{$color}, #{$y} #{$x} #{$color}, #{-$y} #{-$x} #{$color};
+    $out: $out, #{-$x} #{$y} #{$color}, #{$x} #{-$y} #{$color}, #{-$y} #{$x} #{$color}, #{$y} #{-$x} #{$color};
+  }
+  @return $out;
+}
+
+.root {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: .25em;
+  height: .25em;
+  border-radius: 50%;
+  box-shadow: none;
+  animation: animate 20s linear infinite, rotate 20s cubic-bezier(0, 2, 1, -1) infinite;
+}
+
+@keyframes animate {
+  0%, 100% {
+    box-shadow: particles($particles, $distance, 2);
+  }
+  10% {
+    box-shadow: particles($particles, $distance, 3);
+  }
+  20% {
+    box-shadow: particles($particles, $distance, $PI);
+  }
+  30% {
+    box-shadow: particles($particles, $distance, sqrt(3));
+  }
+  40% {
+    box-shadow: particles($particles, $distance, 1);
+  }
+  50% {
+    box-shadow: particles($particles, $distance, $E);
+  }
+  60% {
+    box-shadow: particles($particles, $distance, tan(60deg));
+  }
+  70% {
+    box-shadow: particles($particles, $distance, $LN2);
+  }
+  80% {
+    box-shadow: particles($particles, $distance, tan(30deg));
+  }
+  90% {
+    box-shadow: particles($particles, $distance, $SQRT2);
+  }
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}

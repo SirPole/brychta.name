@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-COMPATIBLE">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="noindex,nofollow" name="robots">
+
+    <title>Brychta.name</title>
+    <link href="<%= require('./images/favicon.png') %>" rel="icon" type="image/png">
+    <% for (var chunk in htmlWebpackPlugin.files.chunks) { %><link as="script" href="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>" rel="preload"><% } %>
+    <% for (var css in htmlWebpackPlugin.files.css) { %><link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet"><% } %>
+</head>
+<body>
+<main>
+    <div class="root"></div>
+</main>
+
+<% for (var chunk in htmlWebpackPlugin.files.chunks) { %><script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script><% } %>
+</body>
